@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\out\web\_debug\</OutputPath>
+    <IntermediateOutputPath>..\..\out\web\_obj\</IntermediateOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\out\web\_release\</OutputPath>
+    <IntermediateOutputPath>..\..\out\web\_obj\</IntermediateOutputPath>
+  </PropertyGroup>
+
+
+
+</Project>
