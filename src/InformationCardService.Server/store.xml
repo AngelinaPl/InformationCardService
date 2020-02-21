@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <InformationCards>
+    <CardId>1000</CardId>
+    <Name>Australian Mist</Name>
+    <Image>australian_mist.jpg</Image>
+  </InformationCards>
+  <InformationCards>
+    <CardId>1001</CardId>
+    <Name>Malayan cat</Name>
+    <Image>Malayan_cat.png</Image>
+  </InformationCards>
+  <InformationCards>
+    <CardId>1002</CardId>
+    <Name>Abyssinian cat</Name>
+    <Image>Abyssinian_cat.jpg</Image>
+  </InformationCards>
+  <InformationCards>
+    <CardId>1003</CardId>
+    <Name>American Shorthair</Name>
+    <Image>american_shorthair.jpg</Image>
+  </InformationCards>
+  <InformationCards>
+    <CardId>1004</CardId>
+    <Name>Birman</Name>
+    <Image>Birman.jpg</Image>
+  </InformationCards>
+  <InformationCards>
+    <CardId>1005</CardId>
+    <Name>Bombay cat</Name>
+    <Image>411px-Bombaycat.jpg</Image>
+  </InformationCards>
+  <InformationCards>
+    <CardId>1006</CardId>
+    <Name>Maine Coon</Name>
+    <Image>400px-Karin_Maine_Coon.jpg</Image>
+  </InformationCards>
+  <InformationCards>
+    <CardId>1007</CardId>
+    <Name>Siamese cat</Name>
+    <Image>411px-Siamese_cat_Vaillante.jpg</Image>
+  </InformationCards>
+  <InformationCards>
+    <CardId>1008</CardId>
+    <Name>Persian cat</Name>
+    <Image>Persialainen.jpg</Image>
+  </InformationCards>
+</NewDataSet>

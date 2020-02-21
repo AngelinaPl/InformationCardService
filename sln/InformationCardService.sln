@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InformationCardService.Client", "..\src\InformationCardService.Client\InformationCardService.Client.csproj", "{38A9EFEC-09CE-4981-A144-92D3F9BC15D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InformationCardService.Server", "..\src\InformationCardService.Server\InformationCardService.Server.csproj", "{D5FD175E-8EC8-4B81-BB16-CC382AFC5FB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InformationCardService.Server", "..\src\InformationCardService.Server\InformationCardService.Server.csproj", "{D5FD175E-8EC8-4B81-BB16-CC382AFC5FB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InformationCardService.Common", "..\src\InformationCardService.Common\InformationCardService.Common.csproj", "{4AE2A79F-1F5B-4250-A2BF-AE3A76465D60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D5FD175E-8EC8-4B81-BB16-CC382AFC5FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5FD175E-8EC8-4B81-BB16-CC382AFC5FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5FD175E-8EC8-4B81-BB16-CC382AFC5FB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AE2A79F-1F5B-4250-A2BF-AE3A76465D60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AE2A79F-1F5B-4250-A2BF-AE3A76465D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AE2A79F-1F5B-4250-A2BF-AE3A76465D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AE2A79F-1F5B-4250-A2BF-AE3A76465D60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
