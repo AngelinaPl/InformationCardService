@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:InformationCardService.Client.Converters"
         mc:Ignorable="d"
-        Title="InformationCardUpdate" Height="450" Width="800">
+        Title="InformationCard" Height="450" Width="800"
+        Background="#336876">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*" />
@@ -14,33 +15,36 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*" />
-            <ColumnDefinition Width="0.6*" />
-            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.3*" />
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0"
                Grid.Column="0"
+               Style="{StaticResource TextStyle}"
                Content="Name" />
         <TextBox Grid.Row="0"
                  Grid.Column="1"
-                 DataContext="{Binding SelectedCard}"
-                 Text="{Binding Name}" />
+                 Style="{StaticResource TextStyle}"
+                 Foreground="Black"
+                 Text="{Binding Path=SelectedCard.Name, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="1"
                Grid.Column="0"
+               Style="{StaticResource TextStyle}"
                Content="Image" />
         <Image Grid.Row="1"
                Grid.Column="1"
-               DataContext="{Binding SelectedCard}"
-               Source="{Binding Path=Image, Converter={converters:ByteToImageConverter}}"
+               Source="{Binding Path=SelectedCard.Image, Converter={converters:ByteToImageConverter}}"
                Width="150" Height="150" />
-        <Button Grid.Row="2"
-                Grid.Column="0"
-                Content="Save"
-                Command="{Binding SaveCardCommand}" />
         <Button Grid.Row="1"
                 Grid.Column="2"
                 Content="Choose image"
+                Style="{StaticResource ButtonStyle}"
                 Command="{Binding ChooseImageCommand}" />
-
+        <Button Grid.Row="2"
+                Grid.Column="1"
+                Content="Save"
+                Style="{StaticResource ButtonStyle}"
+                Command="{Binding SaveCardAsyncCommand}"/>
     </Grid>
 </Window>

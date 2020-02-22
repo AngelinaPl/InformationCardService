@@ -5,20 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:InformationCardService.Client.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
-        <Style x:Key="ButtonStyle">
-            <Setter Property="Control.Margin" Value="15" />
-            <Setter Property="Control.Width" Value="200" />
-            <Setter Property="Control.Height" Value="50" />
-            <Setter Property="Control.VerticalAlignment" Value="Center" />
-        </Style>
-    </Window.Resources>
+        Title="MainWindow" Height="450" Width="800"
+        Background="#336876">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*" />
-            <RowDefinition Height="0.1*" />
-            <RowDefinition Height="0.7*" />
+            <RowDefinition Height="0.15*" />
+            <RowDefinition Height="0.65*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -29,12 +22,14 @@
         <Button Grid.Row="0"
                 Grid.Column="0"
                 Content="Load cards"
-                Command="{Binding LoadCardsCommand}"
+                Command="{Binding LoadCardsAsyncCommand}"
                 Style="{StaticResource ButtonStyle}" />
 
         <Button Grid.Row="1"
                 Grid.Column="0"
                 Content="Sort"
+                Width="150"
+                Height="40"
                 HorizontalAlignment="Left"
                 Command="{Binding SortByNameCommand}"
                 Style="{StaticResource ButtonStyle}" />
@@ -44,6 +39,7 @@
                   Name="CardList"
                   Margin="7,3,7,10" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding InformationCards}"
+                  Background="Transparent"
                   SelectedItem="{Binding SelectedCard, Mode=TwoWay}"
                   ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.ItemContainerStyle>
@@ -51,7 +47,7 @@
                     <Setter Property="Control.Padding" Value="0" />
                     <Style.Triggers>
                         <Trigger Property="ListBoxItem.IsSelected" Value="True">
-                            <Setter Property="ListBoxItem.Background" Value="DarkRed" />
+                            <Setter Property="ListBoxItem.Background" Value="#90932F" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -60,8 +56,8 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0" Background="White">
-                        <Border Margin="5" BorderThickness="1" BorderBrush="SteelBlue"
+                    <Grid Margin="0">
+                        <Border Margin="5" BorderThickness="2" BorderBrush="#0E423B"
                                 Background="{Binding RelativeSource=
                           {
                              RelativeSource 
@@ -70,14 +66,17 @@
                           }, 
                           Path=Background
                          }"
-                                CornerRadius="4">
+                                CornerRadius="10">
                             <Grid Margin="3">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="{Binding Path=Name}" />
+                                <TextBlock Grid.Row="0" Text="{Binding Path=Name}"
+                                           HorizontalAlignment="Center"
+                                           Style="{StaticResource TextStyle}"
+                                           Margin="5"/>
                                 <Image Grid.Row="1" Grid.RowSpan="2"
                                        Source="{Binding Path=Image, Converter={converters:ByteToImageConverter}}"
                                        Width="150" Height="150" />
@@ -109,7 +108,7 @@
             <Button Grid.Row="3"
                     Content="Delete"
                     Style="{StaticResource ButtonStyle}" 
-                    Command="{Binding DeleteCardCommand}"
+                    Command="{Binding DeleteCardAsyncCommand}"
                     IsEnabled="{Binding ElementName=CardList, Path=SelectedItem, Converter={converters:NullToBoolConverter}}"/>
         </Grid>
 

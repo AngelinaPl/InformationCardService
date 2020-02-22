@@ -4,6 +4,19 @@
              xmlns:local="clr-namespace:InformationCardService.Client"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="TextStyle">
+            <Setter Property="Control.FontFamily" Value="Verdana" />
+            <Setter Property="Control.Foreground" Value="#EFF0E3" />
+            <Setter Property="Control.FontStyle" Value="Italic"/>
+            <Setter Property="Control.FontSize" Value="15" />
+            <Setter Property="Control.VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="ButtonStyle" BasedOn="{StaticResource TextStyle}">
+            <Setter Property="Control.Margin" Value="5" />
+            <Setter Property="Control.Width" Value="200" />
+            <Setter Property="Control.Height" Value="50" />
+            <Setter Property="Control.Foreground" Value="#EFF0E3" />
+            <Setter Property="Control.Background" Value="#103641" />
+        </Style>
     </Application.Resources>
 </Application>

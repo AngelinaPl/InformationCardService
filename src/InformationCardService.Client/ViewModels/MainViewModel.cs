@@ -57,12 +57,12 @@ namespace InformationCardService.Client.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        #region LoadCardCommand
+        #region LoadCardAsyncCommand
 
-        private RelayCommand _loadCardsCommand;
-        public ICommand LoadCardsCommand => _loadCardsCommand ?? (_loadCardsCommand = new RelayCommand(LoadCards));
+        private RelayCommand _loadCardsAsyncCommand;
+        public ICommand LoadCardsAsyncCommand => _loadCardsAsyncCommand ?? (_loadCardsAsyncCommand = new RelayCommand(LoadCardsAsync));
 
-        public async void LoadCards()
+        public async void LoadCardsAsync()
         {
             var result = await _cardService.GetCardsAsync();
             InformationCards = result?.Object;
@@ -133,14 +133,14 @@ namespace InformationCardService.Client.ViewModels
 
         #endregion
 
-        #region DeleteCardCommand
+        #region DeleteCardAsyncCommand
 
-        private RelayCommand _deleteCardCommand;
+        private RelayCommand _deleteCardAsyncCommand;
 
-        public RelayCommand DeleteCardCommand =>
-            _deleteCardCommand ?? (_deleteCardCommand = new RelayCommand(DeleteCard));
+        public RelayCommand DeleteCardAsyncCommand =>
+            _deleteCardAsyncCommand ?? (_deleteCardAsyncCommand = new RelayCommand(DeleteCardAsync));
 
-        public async void DeleteCard()
+        public async void DeleteCardAsync()
         {
             await _cardService.DeleteCardAsync(SelectedCard.Id);
             InformationCards.Remove(SelectedCard);
@@ -148,17 +148,21 @@ namespace InformationCardService.Client.ViewModels
 
         #endregion
 
-        #region SaveCardCommand
+        #region SaveCardAsyncCommand
 
-        private RelayCommand _saveCardCommand;
-        public RelayCommand SaveCardCommand => _saveCardCommand ?? (_saveCardCommand = new RelayCommand(SaveCard));
+        private RelayCommand _saveCardAsyncCommand;
+        public RelayCommand SaveCardAsyncCommand => _saveCardAsyncCommand ?? (_saveCardAsyncCommand = new RelayCommand(SaveCardAsync));
 
-        public async void SaveCard()
+        public async void SaveCardAsync()
         {
-            _isSaved = true;
-            await _cardService.SaveCardAsync(SelectedCard);
+            if (SelectedCard.Image != null && !string.IsNullOrEmpty(SelectedCard.Name))
+            {
+                _isSaved = true;
+                await _cardService.SaveCardAsync(SelectedCard);
+            }
             _currentDialog?.Close();
             _currentDialog = null;
+            LoadCardsAsync();
         }
 
         #endregion
