@@ -11,22 +11,22 @@ namespace InformationCardService.Server
     public class StoreDB
     {
         private readonly string _fileName = "store.xml";
-        private List<InformationCard> cards;
+        private List<InformationCard> _cards;
 
         public IEnumerable<InformationCard> GetCards()
         {
             var ds = new DataSet();
             ds.ReadXml(_fileName);
 
-            cards = new List<InformationCard>();
+            _cards = new List<InformationCard>();
             foreach (DataRow cardRow in ds.Tables["InformationCards"].Rows)
             {
                 var image = GetByteImage((string) cardRow["Image"]);
-                cards.Add(new InformationCard(int.Parse((string) cardRow["CardId"]),
+                _cards.Add(new InformationCard(int.Parse((string) cardRow["CardId"]),
                     (string) cardRow["Name"], image));
             }
 
-            return cards;
+            return _cards;
         }
 
         public void SaveCard(InformationCard informationCard)
@@ -52,7 +52,7 @@ namespace InformationCardService.Server
             else
             {
                 GetCards();
-                var currentIndex = cards.Select(x => x.Id).ToArray().Max<int>();
+                var currentIndex = _cards.Select(x => x.Id).ToArray().Max<int>();
                 var root = new XElement("InformationCards");
                 root.Add(new XAttribute("id", (currentIndex + 1).ToString()));
                 root.Add(new XElement("CardId", currentIndex + 1));

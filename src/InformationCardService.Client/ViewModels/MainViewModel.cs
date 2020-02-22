@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using InformationCardService.Client.Annotations;
@@ -86,6 +88,25 @@ namespace InformationCardService.Client.ViewModels
                 SelectedCard = beforeSavedCard;
             }
             _isSaved = false;
+        }
+
+        #endregion
+
+        #region SortByNameCommand
+
+        private RelayCommand _sortByNameCommand;
+
+        public RelayCommand SortByNameCommand =>
+            _sortByNameCommand ?? (_sortByNameCommand = new RelayCommand(SortByName));
+
+        public void SortByName()
+        
+        {
+            if (InformationCards != null && InformationCards.Count != 0)
+            {
+                var ordered =  InformationCards.OrderBy(x => x.Name).ToList();
+                InformationCards = new ObservableCollection<InformationCard>(ordered);
+            }
         }
 
         #endregion
