@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -77,12 +78,34 @@ namespace InformationCardService.Client.ViewModels
         public void ShowUpdateCard()
         {
             var beforeSavedCard = SelectedCard;
-            _currentDialog = new InformationCardUpdate();
+            _currentDialog = new InformationCardDialog();
             _currentDialog.DataContext = this;
             _currentDialog.ShowDialog();
             if (!_isSaved)
             {
                 SelectedCard = beforeSavedCard;
+            }
+            _isSaved = false;
+        }
+
+        #endregion
+
+        #region ShowCreateCardCommand
+
+        private RelayCommand _showCreateCardCommand;
+
+        public RelayCommand ShowCreateCardCommand =>
+            _showCreateCardCommand ?? (_showCreateCardCommand = new RelayCommand(ShowCreateCard));
+
+        public void ShowCreateCard()
+        {
+            SelectedCard = new InformationCard(0, "", null);
+            _currentDialog = new InformationCardDialog();
+            _currentDialog.DataContext = this;
+            _currentDialog.ShowDialog();
+            if (!_isSaved)
+            {
+                SelectedCard = null;
             }
             _isSaved = false;
         }

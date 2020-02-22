@@ -37,16 +37,29 @@ namespace InformationCardService.Server
                 sb.Append(b.ToString());
                 sb.Append(" ");
             }
-
             var xDoc = XDocument.Load(_fileName);
-            xDoc.Root.Elements("InformationCards")
-                .Where(el => el.Attribute("id").Value == informationCard.Id.ToString())
-                .Select(el => el.Element("Name"))
-                .FirstOrDefault().SetValue(informationCard.Name);
-            xDoc.Root.Elements("InformationCards")
-                .Where(el => el.Attribute("id").Value == informationCard.Id.ToString())
-                .Select(el => el.Element("Image"))
-                .FirstOrDefault().SetValue(sb.ToString());
+            if (informationCard.Id != 0)
+            {
+                xDoc.Root.Elements("InformationCards")
+                    .Where(el => el.Attribute("id").Value == informationCard.Id.ToString())
+                    .Select(el => el.Element("Name"))
+                    .FirstOrDefault().SetValue(informationCard.Name);
+                xDoc.Root.Elements("InformationCards")
+                    .Where(el => el.Attribute("id").Value == informationCard.Id.ToString())
+                    .Select(el => el.Element("Image"))
+                    .FirstOrDefault().SetValue(sb.ToString());
+            }
+            else
+            {
+                GetCards();
+                var currentIndex = cards.Select(x => x.Id).ToArray().Max<int>();
+                var root = new XElement("InformationCards");
+                root.Add(new XAttribute("id", (currentIndex + 1).ToString()));
+                root.Add(new XElement("CardId", informationCard.Id));
+                root.Add(new XElement("Name", informationCard.Name));
+                root.Add(new XElement("Image", sb.ToString()));
+                xDoc.Element("NewDataSet").Add(root);
+            }
             xDoc.Save(_fileName);
         }
 

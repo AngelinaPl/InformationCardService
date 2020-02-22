@@ -86,7 +86,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\InformationCardUpdate.xaml">
+    <Page Include="Views\InformationCardDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,8 +103,8 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\CardService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Views\InformationCardUpdate.xaml.cs">
-      <DependentUpon>InformationCardUpdate.xaml</DependentUpon>
+    <Compile Include="Views\InformationCardDialog.xaml.cs">
+      <DependentUpon>InformationCardDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
