@@ -100,7 +100,9 @@
                     IsEnabled="{Binding ElementName=CardList, Path=SelectedItem, Converter={converters:NullToBoolConverter}}" />
             <Button Grid.Row="3"
                     Content="Delete"
-                    Style="{StaticResource ButtonStyle}" />
+                    Style="{StaticResource ButtonStyle}" 
+                    Command="{Binding DeleteCardCommand}"
+                    IsEnabled="{Binding ElementName=CardList, Path=SelectedItem, Converter={converters:NullToBoolConverter}}"/>
         </Grid>
 
 

@@ -65,5 +65,25 @@ namespace InformationCardService.Client.Services
 
             return result;
         }
+
+        public async Task<IResult<bool>> DeleteCardAsync(int cardId)
+        {
+            IResult<bool> result = null;
+            try
+            {
+                await Task.Factory.StartNew(() =>
+                {
+                    var query = _apiUrl + "/" + cardId;
+                    var response = _client.GetAsync(query).Result;
+                    result = new Result<bool>(response.IsSuccessStatusCode);
+                });
+            }
+            catch (Exception e)
+            {
+                result = new Result<bool>(e);
+            }
+
+            return result;
+        }
     }
 }

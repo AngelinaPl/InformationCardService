@@ -55,5 +55,22 @@ namespace InformationCardService.Server.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> DownloadAsync(int id)
+        {
+            try
+            {
+                return await Task<IActionResult>.Factory.StartNew(() =>
+                {
+                    _storeDb.DeleteCard(id);
+                    return Ok();
+                });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

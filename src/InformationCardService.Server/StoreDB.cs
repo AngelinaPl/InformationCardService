@@ -55,11 +55,20 @@ namespace InformationCardService.Server
                 var currentIndex = cards.Select(x => x.Id).ToArray().Max<int>();
                 var root = new XElement("InformationCards");
                 root.Add(new XAttribute("id", (currentIndex + 1).ToString()));
-                root.Add(new XElement("CardId", informationCard.Id));
+                root.Add(new XElement("CardId", currentIndex + 1));
                 root.Add(new XElement("Name", informationCard.Name));
                 root.Add(new XElement("Image", sb.ToString()));
                 xDoc.Element("NewDataSet").Add(root);
             }
+            xDoc.Save(_fileName);
+        }
+
+        public void DeleteCard(int cardId)
+        {
+            var xDoc = XDocument.Load(_fileName);
+            xDoc.Root.Elements("InformationCards")
+                .Where(el => el.Attribute("id").Value == cardId.ToString())
+                .Remove();
             xDoc.Save(_fileName);
         }
 

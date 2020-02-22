@@ -112,6 +112,21 @@ namespace InformationCardService.Client.ViewModels
 
         #endregion
 
+        #region DeleteCardCommand
+
+        private RelayCommand _deleteCardCommand;
+
+        public RelayCommand DeleteCardCommand =>
+            _deleteCardCommand ?? (_deleteCardCommand = new RelayCommand(DeleteCard));
+
+        public async void DeleteCard()
+        {
+            await _cardService.DeleteCardAsync(SelectedCard.Id);
+            InformationCards.Remove(SelectedCard);
+        }
+
+        #endregion
+
         #region SaveCardCommand
 
         private RelayCommand _saveCardCommand;
