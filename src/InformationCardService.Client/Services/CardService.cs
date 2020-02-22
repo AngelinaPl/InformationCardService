@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using InformationCardService.Common;
 using InformationCardService.Common.interfaces;
@@ -39,6 +40,27 @@ namespace InformationCardService.Client.Services
             catch (Exception e)
             {
                 result = new Result<ObservableCollection<InformationCard>>(e);
+            }
+
+            return result;
+        }
+
+        public async Task<IResult<bool>> SaveCardAsync(InformationCard card)
+        {
+            IResult<bool> result = null;
+            try
+            {
+                await Task.Factory.StartNew(() =>
+                {
+                    var serializedProduct = JsonConvert.SerializeObject(card);
+                    var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
+                    var response = _client.PostAsync(_apiUrl, content).Result;
+                    result = new Result<bool>(response.IsSuccessStatusCode);
+                });
+            }
+            catch (Exception e)
+            {
+                result = new Result<bool>(e);
             }
 
             return result;

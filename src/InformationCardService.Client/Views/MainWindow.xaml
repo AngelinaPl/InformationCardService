@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-        <converters:ByteToImageConverter x:Key="ByteToImageConverter" />
+        <!--<converters:ByteToImageConverter x:Key="ByteToImageConverter" />-->
         <Style x:Key="ButtonStyle">
             <Setter Property="Control.Margin" Value="15" />
             <Setter Property="Control.Width" Value="200" />
@@ -35,8 +35,10 @@
 
         <ListView Grid.Row="1"
                   Grid.Column="0"
+                  Name="CardList"
                   Margin="7,3,7,10" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding InformationCards}"
+                  SelectedItem="{Binding SelectedCard, Mode=TwoWay}"
                   ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.ItemContainerStyle>
                 <Style>
@@ -71,7 +73,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Text="{Binding Path=Name}" />
                                 <Image Grid.Row="1" Grid.RowSpan="2"
-                                       Source="{Binding Path=Image, Converter={StaticResource ByteToImageConverter}}"
+                                       Source="{Binding Path=Image, Converter={converters:ByteToImageConverter}}"
                                        Width="150" Height="150" />
                             </Grid>
                         </Border>
@@ -94,7 +96,9 @@
                     Style="{StaticResource ButtonStyle}" />
             <Button Grid.Row="2"
                     Content="Update"
-                    Style="{StaticResource ButtonStyle}" />
+                    Style="{StaticResource ButtonStyle}"
+                    Command="{Binding ShowUpdateCardCommand}"
+                    IsEnabled="{Binding ElementName=CardList, Path=SelectedItem, Converter={converters:NullToBoolConverter}}" />
             <Button Grid.Row="3"
                     Content="Delete"
                     Style="{StaticResource ButtonStyle}" />

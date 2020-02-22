@@ -1,18 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Xml.Linq;
 using InformationCardService.Common;
 
 namespace InformationCardService.Server
 {
     public class StoreDB
     {
+        private readonly string _fileName = "store.xml";
+        private List<InformationCard> cards;
+
         public IEnumerable<InformationCard> GetCards()
         {
             var ds = new DataSet();
-            ds.ReadXml("store.xml");
+            ds.ReadXml(_fileName);
 
-            var cards = new List<InformationCard>();
+            cards = new List<InformationCard>();
             foreach (DataRow cardRow in ds.Tables["InformationCards"].Rows)
             {
                 var image = GetByteImage((string) cardRow["Image"]);
@@ -23,12 +29,39 @@ namespace InformationCardService.Server
             return cards;
         }
 
-        private byte[] GetByteImage(string imageName)
+        public void SaveCard(InformationCard informationCard)
         {
-            var imageDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Images");
-            var imagePath = Path.Combine(imageDirectory, imageName);
-            var imgdata = File.ReadAllBytes(imagePath);
-            return imgdata;
+            var sb = new StringBuilder();
+            foreach (var b in informationCard.Image)
+            {
+                sb.Append(b.ToString());
+                sb.Append(" ");
+            }
+
+            var xDoc = XDocument.Load(_fileName);
+            xDoc.Root.Elements("InformationCards")
+                .Where(el => el.Attribute("id").Value == informationCard.Id.ToString())
+                .Select(el => el.Element("Name"))
+                .FirstOrDefault().SetValue(informationCard.Name);
+            xDoc.Root.Elements("InformationCards")
+                .Where(el => el.Attribute("id").Value == informationCard.Id.ToString())
+                .Select(el => el.Element("Image"))
+                .FirstOrDefault().SetValue(sb.ToString());
+            xDoc.Save(_fileName);
+        }
+
+        private byte[] GetByteImage(string image)
+        {
+            if (image.Contains(".png") || image.Contains(".jpg"))
+            {
+                var imageDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Images");
+                var imagePath = Path.Combine(imageDirectory, image);
+                var imgdata = File.ReadAllBytes(imagePath);
+                return imgdata;
+            }
+
+            var array = image.Trim().Split(" ").Select(x => byte.Parse(x)).ToArray();
+            return array;
         }
     }
 }
